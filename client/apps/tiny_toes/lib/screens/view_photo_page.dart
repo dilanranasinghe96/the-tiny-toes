@@ -59,9 +59,15 @@ class ViewPhotoPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 20),
-            Text('Artist $userName'),
-            const SizedBox(height: 20),
-            Text('Album $albumName')
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Artist $userName'),
+                const SizedBox(height: 20),
+                Text('Album $albumName')
+              ],
+            ),
           ],
         ),
       ),
