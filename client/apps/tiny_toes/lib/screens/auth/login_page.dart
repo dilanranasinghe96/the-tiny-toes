@@ -1,19 +1,97 @@
-import 'package:flutter/material.dart';
-import 'package:tiny_toes/custom-widgets/auth_background.dart';
+// import 'package:flutter/material.dart';
+// import 'package:tiny_toes/custom-widgets/auth_background.dart';
 
+// import '../../custom-widgets/custom_button.dart';
+// import '../../custom-widgets/custom_textfield.dart';
+
+// class LoginPage extends StatefulWidget {
+//   const LoginPage({super.key});
+
+//   @override
+//   State<LoginPage> createState() => _LoginPageState();
+// }
+
+// class _LoginPageState extends State<LoginPage> {
+//   final TextEditingController emailController = TextEditingController();
+//   final TextEditingController passwordController = TextEditingController();
+//   @override
+//   Widget build(BuildContext context) {
+//     final size = MediaQuery.of(context).size;
+
+//     return SafeArea(
+//       child: Scaffold(
+//           body: AuthBackground(
+//         size: size,
+//         content: ListView(
+//           children: [
+//             SizedBox(height: size.height * 0.08),
+//             CustomTextField(
+//               isPassword: false,
+//               label: 'Email',
+//               controller: emailController,
+//               prefix: Icons.email_outlined,
+//             ),
+//             CustomTextField(
+//               label: "Password",
+//               controller: passwordController,
+//               prefix: Icons.lock_outline,
+//               isPassword: true,
+//             ),
+//             const SizedBox(
+//               height: 15,
+//             ),
+//             CustomButton(
+//               size: size,
+//               ontap: () {},
+//               text: "Log In",
+//               buttonColor: Colors.grey.shade900,
+//               textColor: Colors.white,
+//             ),
+//           ],
+//         ),
+//       )),
+//     );
+//   }
+// }
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../custom-widgets/auth_background.dart';
 import '../../custom-widgets/custom_button.dart';
 import '../../custom-widgets/custom_textfield.dart';
+import '../../services/storage_services';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  final String _hardcodedUsername = 'user';
+  final String _hardcodedPassword = 'password';
+
+  void _login() async {
+    final storageService = Provider.of<StorageService>(context, listen: false);
+    if (_usernameController.text == _hardcodedUsername &&
+        _passwordController.text == _hardcodedPassword) {
+      await storageService.saveUsername(_usernameController.text);
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => UsersPage())
+      //     );
+    } else {
+      showDialog(
+        context: context,
+        builder: (_) => const AlertDialog(title: Text('Login Failed')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -28,12 +106,12 @@ class _LoginPageState extends State<LoginPage> {
             CustomTextField(
               isPassword: false,
               label: 'Email',
-              controller: emailController,
+              controller: _usernameController,
               prefix: Icons.email_outlined,
             ),
             CustomTextField(
               label: "Password",
-              controller: passwordController,
+              controller: _passwordController,
               prefix: Icons.lock_outline,
               isPassword: true,
             ),
@@ -42,7 +120,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
             CustomButton(
               size: size,
-              ontap: () {},
+              ontap: () {
+                _login();
+              },
               text: "Log In",
               buttonColor: Colors.grey.shade900,
               textColor: Colors.white,
