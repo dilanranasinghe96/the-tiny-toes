@@ -60,7 +60,8 @@ import 'package:provider/provider.dart';
 import '../../custom-widgets/auth_background.dart';
 import '../../custom-widgets/custom_button.dart';
 import '../../custom-widgets/custom_textfield.dart';
-import '../../services/storage_services';
+import '../../services/storage_service.dart';
+import 'users_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -78,16 +79,27 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() async {
     final storageService = Provider.of<StorageService>(context, listen: false);
-    if (_usernameController.text == _hardcodedUsername &&
-        _passwordController.text == _hardcodedPassword) {
+    if (_usernameController.text.trim() == _hardcodedUsername &&
+        _passwordController.text.trim() == _hardcodedPassword) {
       await storageService.saveUsername(_usernameController.text);
-      // Navigator.pushReplacement(
-      //     context, MaterialPageRoute(builder: (context) => UsersPage())
-      //     );
+
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const UsersPage()));
     } else {
       showDialog(
         context: context,
-        builder: (_) => const AlertDialog(title: Text('Login Failed')),
+        builder: (_) => AlertDialog(
+          title: const Text('Login Failed'),
+          content: const Text('Incorrect username or password.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
       );
     }
   }
@@ -98,38 +110,37 @@ class _LoginPageState extends State<LoginPage> {
 
     return SafeArea(
       child: Scaffold(
-          body: AuthBackground(
-        size: size,
-        content: ListView(
-          children: [
-            SizedBox(height: size.height * 0.08),
-            CustomTextField(
-              isPassword: false,
-              label: 'Email',
-              controller: _usernameController,
-              prefix: Icons.email_outlined,
-            ),
-            CustomTextField(
-              label: "Password",
-              controller: _passwordController,
-              prefix: Icons.lock_outline,
-              isPassword: true,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            CustomButton(
-              size: size,
-              ontap: () {
-                _login();
-              },
-              text: "Log In",
-              buttonColor: Colors.grey.shade900,
-              textColor: Colors.white,
-            ),
-          ],
+        body: AuthBackground(
+          size: size,
+          content: ListView(
+            children: [
+              SizedBox(height: size.height * 0.08),
+              CustomTextField(
+                isPassword: false,
+                label: 'Username',
+                controller: _usernameController,
+                prefix: Icons.person_outline,
+              ),
+              CustomTextField(
+                label: "Password",
+                controller: _passwordController,
+                prefix: Icons.lock_outline,
+                isPassword: true,
+              ),
+              const SizedBox(height: 15),
+              CustomButton(
+                size: size,
+                ontap: () {
+                  _login();
+                },
+                text: "Log In",
+                buttonColor: Colors.grey.shade900,
+                textColor: Colors.white,
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
