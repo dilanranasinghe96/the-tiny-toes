@@ -12,7 +12,6 @@ class UsersPage extends StatelessWidget {
   void _logout(BuildContext context) async {
     final storageService = Provider.of<StorageService>(context, listen: false);
     await storageService.clearData();
-
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -48,22 +47,30 @@ class UsersPage extends StatelessWidget {
             return ListView.builder(
               itemCount: users.length,
               itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    title: Text(users[index]['name']),
-                    subtitle: Text(users[index]['email']),
-                    leading: CircleAvatar(
-                      child: Text(users[index]['name'][0]),
+                return Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: Card(
+                    color: Colors.amber.shade100,
+                    elevation: 5,
+                    child: ListTile(
+                      title: Text(users[index]['name']),
+                      subtitle: Text(users[index]['email']),
+                      leading: CircleAvatar(
+                        child: Text(users[index]['name'][0]),
+                      ),
+                      onTap: () {
+                        // Navigate to AlbumsPage when a user is tapped
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AlbumsPage(
+                                userId: users[index]['id'],
+                                username: users[index]['name']),
+                          ),
+                        );
+                      },
                     ),
-                    onTap: () {
-                      // Navigate to AlbumsPage when an album is tapped
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>  AlbumsPage(userId: users[index]['id']),
-                        ),
-                      );
-                    },
                   ),
                 );
               },

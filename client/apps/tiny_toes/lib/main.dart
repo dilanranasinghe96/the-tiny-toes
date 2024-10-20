@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tiny_toes/screens/auth/login_page.dart';
+import 'package:tiny_toes/services/storage_service.dart';
 
-import 'screens/users_page.dart';
 import 'services/network_service.dart';
 
 void main() {
@@ -9,6 +10,7 @@ void main() {
     MultiProvider(
       providers: [
         Provider<NetworkService>(create: (_) => NetworkService()),
+        Provider<StorageService>(create: (_) => StorageService()),
       ],
       child: const MyApp(),
     ),
@@ -21,8 +23,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Users API Demo',
-      home: UsersPage(),
+      title: 'The Tiny Toes',
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(),
     );
   }
 }

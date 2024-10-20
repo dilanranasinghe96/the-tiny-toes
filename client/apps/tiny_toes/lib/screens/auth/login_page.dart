@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
         _passwordController.text.trim() == _hardcodedPassword) {
       await storageService.saveUsername(_usernameController.text);
 
-      Navigator.pushReplacement(
+      Navigator.push(
           context, MaterialPageRoute(builder: (context) => const UsersPage()));
     } else {
       showDialog(
