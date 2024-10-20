@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../services/network_service.dart';
-import '../../services/storage_service.dart';
-import '../auth/login_page.dart';
+import '../services/network_service.dart';
+import '../services/storage_service.dart';
+import 'albums_page.dart';
+import 'auth/login_page.dart';
 
 class UsersPage extends StatelessWidget {
   const UsersPage({super.key});
@@ -55,7 +56,13 @@ class UsersPage extends StatelessWidget {
                       child: Text(users[index]['name'][0]),
                     ),
                     onTap: () {
-                      print('Selected user: ${users[index]['name']}');
+                      // Navigate to AlbumsPage when an album is tapped
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>  AlbumsPage(userId: users[index]['id']),
+                        ),
+                      );
                     },
                   ),
                 );

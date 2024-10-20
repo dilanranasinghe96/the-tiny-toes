@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/auth/users_page.dart';
+import 'screens/users_page.dart';
 import 'services/network_service.dart';
 
 void main() {

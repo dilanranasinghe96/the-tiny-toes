@@ -61,7 +61,7 @@ import '../../custom-widgets/auth_background.dart';
 import '../../custom-widgets/custom_button.dart';
 import '../../custom-widgets/custom_textfield.dart';
 import '../../services/storage_service.dart';
-import 'users_page.dart';
+import '../users_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
