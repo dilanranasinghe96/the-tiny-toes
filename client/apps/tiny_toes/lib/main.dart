@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tiny_toes/screens/auth/login_page.dart';
+import 'package:tiny_toes/screens/splash_screen.dart';
 import 'package:tiny_toes/services/storage_service.dart';
 
 import 'services/network_service.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'The Tiny Toes',
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: SplashScreen(),
     );
   }
 }
