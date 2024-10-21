@@ -110,34 +110,36 @@ class _LoginPageState extends State<LoginPage> {
 
     return SafeArea(
       child: Scaffold(
-        body: AuthBackground(
-          size: size,
-          content: ListView(
-            children: [
-              SizedBox(height: size.height * 0.08),
-              CustomTextField(
-                isPassword: false,
-                label: 'Username',
-                controller: _usernameController,
-                prefix: Icons.person_outline,
-              ),
-              CustomTextField(
-                label: "Password",
-                controller: _passwordController,
-                prefix: Icons.lock_outline,
-                isPassword: true,
-              ),
-              const SizedBox(height: 15),
-              CustomButton(
-                size: size,
-                ontap: () {
-                  _login();
-                },
-                text: "Log In",
-                buttonColor: Colors.grey.shade900,
-                textColor: Colors.white,
-              ),
-            ],
+        body: SingleChildScrollView(
+          child: AuthBackground(
+            size: size,
+            content: ListView(
+              children: [
+                SizedBox(height: size.height * 0.08),
+                CustomTextField(
+                  isPassword: false,
+                  label: 'Username',
+                  controller: _usernameController,
+                  prefix: Icons.person_outline,
+                ),
+                CustomTextField(
+                  label: "Password",
+                  controller: _passwordController,
+                  prefix: Icons.lock_outline,
+                  isPassword: true,
+                ),
+                const SizedBox(height: 15),
+                CustomButton(
+                  size: size,
+                  ontap: () {
+                    _login();
+                  },
+                  text: "Log In",
+                  buttonColor: Colors.grey.shade900,
+                  textColor: Colors.white,
+                ),
+              ],
+            ),
           ),
         ),
       ),

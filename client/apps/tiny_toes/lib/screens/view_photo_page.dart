@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../custom-widgets/custom_text.dart';
 import '../services/storage_service.dart';
 import 'auth/login_page.dart';
 
@@ -32,13 +33,21 @@ class ViewPhotoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gallery'),
+        backgroundColor: Colors.lightBlueAccent,
+        title: CustomText(
+            text: 'Gallery',
+            color: Colors.black,
+            fsize: 25,
+            fweight: FontWeight.bold),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              _logout(context);
-            },
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                _logout(context);
+              },
+            ),
           ),
         ],
       ),
@@ -46,13 +55,13 @@ class ViewPhotoPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: CustomText(
+                  text: title,
+                  color: Colors.black,
+                  fsize: 25,
+                  fweight: FontWeight.bold),
             ),
             Image.network(
               photoUrl,
@@ -63,9 +72,16 @@ class ViewPhotoPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Artist $userName'),
-                const SizedBox(height: 20),
-                Text('Album $albumName')
+                CustomText(
+                    text: 'Artist - $userName',
+                    color: Colors.black,
+                    fsize: 20,
+                    fweight: FontWeight.w500),
+                CustomText(
+                    text: 'Album - $albumName',
+                    color: Colors.black,
+                    fsize: 20,
+                    fweight: FontWeight.w500),
               ],
             ),
           ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../custom-widgets/custom_text.dart';
 import '../services/network_service.dart';
 import '../services/storage_service.dart';
 import 'auth/login_page.dart';
@@ -24,16 +25,24 @@ class AlbumsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final networkService = Provider.of<NetworkService>(context, listen: false);
-
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Albums'),
+        backgroundColor: Colors.lightBlueAccent,
+        title: CustomText(
+            text: 'Albums',
+            color: Colors.black,
+            fsize: 25,
+            fweight: FontWeight.bold),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              _logout(context);
-            },
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                _logout(context);
+              },
+            ),
           ),
         ],
       ),
@@ -48,7 +57,14 @@ class AlbumsPage extends StatelessWidget {
             List<dynamic> albums = snapshot.data!;
             return Column(
               children: [
-                Text(username),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CustomText(
+                      text: username,
+                      color: Colors.black,
+                      fsize: 30,
+                      fweight: FontWeight.bold),
+                ),
                 Expanded(
                   child: ListView.builder(
                     itemCount: albums.length,
@@ -62,14 +78,19 @@ class AlbumsPage extends StatelessWidget {
                             elevation: 5,
                             color: Colors.amber.shade100,
                             child: ListTile(
-                              title: Text(albums[index]['title']),
+                              title: CustomText(
+                                  text: albums[index]['title'],
+                                  color: Colors.black,
+                                  fsize: 18,
+                                  fweight: FontWeight.w500),
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => PhotosPage(
                                       albumId: albums[index]['id'],
-                                      albumName: albums[index]['title'], userName: username,
+                                      albumName: albums[index]['title'],
+                                      userName: username,
                                     ),
                                   ),
                                 );

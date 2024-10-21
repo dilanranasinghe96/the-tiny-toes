@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tiny_toes/screens/view_photo_page.dart';
 
+import '../custom-widgets/custom_text.dart';
 import '../services/network_service.dart';
 import '../services/storage_service.dart';
 import 'auth/login_page.dart';
@@ -33,13 +34,21 @@ class PhotosPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gallery'),
+        backgroundColor: Colors.lightBlueAccent,
+        title: CustomText(
+            text: 'Gallery',
+            color: Colors.black,
+            fsize: 25,
+            fweight: FontWeight.bold),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              _logout(context);
-            },
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                _logout(context);
+              },
+            ),
           ),
         ],
       ),
@@ -54,7 +63,17 @@ class PhotosPage extends StatelessWidget {
             List<dynamic> photos = snapshot.data!;
             return Column(
               children: [
-                Text(albumName),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: CustomText(
+                        text: albumName,
+                        color: Colors.black,
+                        fsize: 25,
+                        fweight: FontWeight.w500),
+                  ),
+                ),
                 Expanded(
                   child: GridView.builder(
                     gridDelegate:
@@ -87,12 +106,11 @@ class PhotosPage extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                photos[index]['title'],
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w700),
-                              ),
+                              child: CustomText(
+                                  text: photos[index]['title'],
+                                  color: Colors.black,
+                                  fsize: 15,
+                                  fweight: FontWeight.w500),
                             )
                           ],
                         ),

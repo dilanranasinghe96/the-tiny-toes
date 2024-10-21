@@ -29,7 +29,7 @@ class AuthBackground extends StatelessWidget {
               child: CustomText(
                   text: 'Ther Tiny Toes',
                   color: Colors.white,
-                  fsize: 30 ,
+                  fsize: 50,
                   fweight: FontWeight.bold),
             ),
           ),

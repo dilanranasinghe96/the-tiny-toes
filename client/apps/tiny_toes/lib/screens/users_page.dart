@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../custom-widgets/custom_text.dart';
 import '../services/network_service.dart';
 import '../services/storage_service.dart';
 import 'albums_page.dart';
@@ -25,13 +26,21 @@ class UsersPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Users'),
+        backgroundColor: Colors.lightBlueAccent,
+        title: CustomText(
+            text: 'Users',
+            color: Colors.black,
+            fsize: 25,
+            fweight: FontWeight.bold),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              _logout(context);
-            },
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                _logout(context);
+              },
+            ),
           ),
         ],
       ),
@@ -54,13 +63,24 @@ class UsersPage extends StatelessWidget {
                     color: Colors.amber.shade100,
                     elevation: 5,
                     child: ListTile(
-                      title: Text(users[index]['name']),
-                      subtitle: Text(users[index]['email']),
+                      title: CustomText(
+                          text: users[index]['name'],
+                          color: Colors.black,
+                          fsize: 20,
+                          fweight: FontWeight.w500),
+                      subtitle: CustomText(
+                          text: users[index]['email'],
+                          color: Colors.black,
+                          fsize: 15,
+                          fweight: FontWeight.w400),
                       leading: CircleAvatar(
-                        child: Text(users[index]['name'][0]),
+                        child: CustomText(
+                            text: users[index]['name'][0],
+                            color: Colors.black,
+                            fsize: 20,
+                            fweight: FontWeight.w500),
                       ),
                       onTap: () {
-                        // Navigate to AlbumsPage when a user is tapped
                         Navigator.push(
                           context,
                           MaterialPageRoute(
